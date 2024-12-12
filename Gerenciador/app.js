@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const produtoRoutes = require("./routes/produtoRoute"); 
+require('dotenv').config();
+
 
 const app = express();
 
@@ -8,10 +10,25 @@ const app = express();
 app.use(express.json());
 
 
-mongoose
-  .connect("mongodb://localhost:27017/nome_do_banco", { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Conectado ao MongoDB com sucesso!"))
-  .catch((error) => console.error("Erro ao conectar ao MongoDB:", error));
+const conectarMongoDB = async () => {
+    try {
+      const uri = process.env.MONGO_SENHA;
+      if (!uri) {
+        console.error('Erro: a variável MONGO_SENHA não está definida no arquivo .env');
+        process.exit(1); 
+      }
+  
+      await mongoose.connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log("Conectado ao MongoDB com sucesso!");
+    } catch (error) {
+      console.error("Erro ao conectar ao MongoDB:", error.message);
+      process.exit(1); 
+    }
+  };
+  
 
 // Rotas
 app.use("/api/produtos", produtoRoutes); 
