@@ -31,6 +31,7 @@ const conectarMongoDB = async () => {
     }
   };
   
+  conectarMongoDB(); //Chamando função de conectar ao mongodb
 
 // Rotas
 app.use("/api/produtos", produtoRoutes); 
