@@ -13,23 +13,21 @@ app.use(cors());
 
 
 const conectarMongoDB = async () => {
-    try {
-      const uri = process.env.MONGO_SENHA;
-      if (!uri) {
-        console.error('Erro: a variável MONGO_SENHA não está definida no arquivo .env');
-        process.exit(1); 
-      }
-  
-      await mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log("Conectado ao MongoDB com sucesso!");
-    } catch (error) {
-      console.error("Erro ao conectar ao MongoDB:", error.message);
+  try {
+    const uri = process.env.MONGO_SENHA;
+    
+    if (!uri) {
+      console.error('Erro: a variável MONGO_SENHA não está definida no arquivo .env');
       process.exit(1); 
     }
-  };
+
+    await mongoose.connect(uri);
+    console.log('Conectado ao MongoDB Atlas com sucesso!');
+  } catch (err) {
+    console.error('Erro ao conectar ao MongoDB:', err.message);
+    process.exit(1); 
+  }
+};
   
   conectarMongoDB(); //Chamando função de conectar ao mongodb
 
