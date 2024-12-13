@@ -4,7 +4,7 @@
   "description": "Backend para gerenciamento de produtos",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js", 
+    "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "dependencies": {
@@ -20,4 +20,3 @@
     "node": ">=16.0.0"
   }
 }
-

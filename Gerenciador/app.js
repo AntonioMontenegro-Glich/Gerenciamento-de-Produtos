@@ -14,7 +14,7 @@ app.use(cors());
 
 const conectarMongoDB = async () => {
   try {
-    const uri = process.env.MONGO_SENHA;
+    const uri = process.env.CONECTAR_SENHA;
     
     if (!uri) {
       console.error('Erro: a variável MONGO_SENHA não está definida no arquivo .env');
