@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const produtoRoutes = require('./routes/produtoRoute');  
-const uploadFotosRoutes = require('./routes/uploadFotosRoute');    
+const upload = require("./multerConfig");
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -35,7 +36,19 @@ conectarMongoDB();
 
 
 app.use('/api/produtos', produtoRoutes);    
-app.use('/uploads', uploadFotosRoutes);        
+app.use("/uploads", express.static(path.join(__dirname, "upload")));
+app.post("/upload", upload.single("photo"), (req, res) => {
+ 
+
+  if (!req.file) {
+    return res.status(400).send("Nenhum arquivo foi enviado.");
+  }
+
+  res.status(200).send({
+    message: "Arquivo enviado!",
+    file: req.file, 
+  });
+});       
 
 app.get('/', (req, res) => {
   res.send('API de Produtos funcionando!');

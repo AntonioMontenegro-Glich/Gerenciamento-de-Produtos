@@ -1,4 +1,5 @@
 const Produto = require("../models/Produto");
+const upload = require("../multerConfig"); 
 
 exports.getAllProdutos = async (req, res) => {
   try {
@@ -17,23 +18,21 @@ exports.getAllProdutos = async (req, res) => {
 
 exports.createProduto = async (req, res) => {
   try {
-    const { nome, descricao, quantidade, foto } = req.body;
+    const { nome, descricao, quantidade} = req.body;
 
     if (!nome || !descricao || !quantidade) {
       return res.status(400).json({ error: 'Os campos nome, descricao e quantidade são obrigatórios.' });
     }
 
-    let fotoUrl = null;
-    if (foto) {
-     
-      fotoUrl = await uploadImage(foto); 
-    }
+      const foto = req.file ? `/uploads/${req.file.filename}` : null;
+  
+      console.log('Imagem recebida:', picture);
 
     const novoProduto = await Produto.create({
       nome,
       descricao,
       quantidade,
-      foto: fotoUrl, 
+      foto, 
     });
 
     return res.status(201).json(novoProduto);
