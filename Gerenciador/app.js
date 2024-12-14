@@ -1,21 +1,23 @@
-const express = require("express");
+const express = require('express');
 const cors = require('cors');
-const mongoose = require("mongoose");
-const produtoRoutes = require("./routes/produtoRoute"); 
+const mongoose = require('mongoose');
+const produtoRoutes = require('./routes/produtoRoute');  
+const uploadRoutes = require('./routes/uploadFotosRoute');    
 require('dotenv').config();
-
 
 const app = express();
 
-
 app.use(express.json());
 app.use(cors());
+
+mongoose.connection.once('open', () => {
+  console.log('Conectado ao MongoDB');
+});
 
 
 const conectarMongoDB = async () => {
   try {
     const uri = process.env.CONECTAR_SENHA;
-    
     if (!uri) {
       console.error('Erro: a variável MONGO_SENHA não está definida no arquivo .env');
       process.exit(1); 
@@ -28,23 +30,24 @@ const conectarMongoDB = async () => {
     process.exit(1); 
   }
 };
-  
-  conectarMongoDB(); //Chamando função de conectar ao mongodb
 
-// Rotas
-app.use("/api/produtos", produtoRoutes); 
+conectarMongoDB();
 
 
-app.get("/", (req, res) => {
-  res.send("API de Produtos funcionando!");
+app.use('/api/produtos', produtoRoutes);  
+app.use('/api', uploadRoutes);            
+
+app.get('/', (req, res) => {
+  res.send('API de Produtos funcionando!');
 });
-
 
 app.use((req, res) => {
-  res.status(404).json({ error: "Rota não encontrada." });
+  res.status(404).json({ error: 'Rota não encontrada.' });
 });
 
-const PORT = 3000; // Define a porta do servidor
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+
