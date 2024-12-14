@@ -23,11 +23,17 @@ exports.createProduto = async (req, res) => {
       return res.status(400).json({ error: 'Os campos nome, descricao e quantidade são obrigatórios.' });
     }
 
+    let fotoUrl = null;
+    if (foto) {
+     
+      fotoUrl = await uploadImage(foto); 
+    }
+
     const novoProduto = await Produto.create({
       nome,
       descricao,
       quantidade,
-      foto, 
+      foto: fotoUrl, 
     });
 
     return res.status(201).json(novoProduto);
