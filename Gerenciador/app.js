@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const produtoRoutes = require('./routes/produtoRoute');  
-const uploadRoutes = require('./routes/uploadFotosRoute');    
+const uploadFotosRoutes = require('./routes/uploadFotosRoute');    
 require('dotenv').config();
 
 const app = express();
@@ -34,8 +34,7 @@ const conectarMongoDB = async () => {
 conectarMongoDB();
 
 
-app.use('/api/produtos', produtoRoutes);  
-app.use('/api', uploadRoutes);    
+app.use('/api/produtos', produtoRoutes);    
 app.use('/uploads', uploadFotosRoutes);        
 
 app.get('/', (req, res) => {
