@@ -29,11 +29,11 @@ exports.getAllProdutos = async (req, res) => {
 exports.updateProduto = async (req, res) => {
     try {
       const { id } = req.params; 
-      const { nome, descricao, quantidade } = req.body; 
+      const { nome, descricao, quantidade, foto } = req.body; 
   
       
       if (!nome && !descricao && !quantidade && !foto) {
-        return res.status(400).json({ error: 'Envie ao menos um campo para atualização (nome, descricao ou quantidade).' });
+        return res.status(400).json({ error: 'Envie ao menos um campo para atualização (nome, descricao , quantidade ou foto).' });
       }
   
       
