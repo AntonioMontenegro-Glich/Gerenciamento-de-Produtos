@@ -9,11 +9,11 @@ exports.getAllProdutos = async (req, res) => {
   }
 };
 
-const uploadImage = async (imageBuffer) => {
+//const uploadImage = async (imageBuffer) => {
   
-  const imageUrl = "mongodb+srv://antoniolemos2004:7t9Jv8t85I5eiFsJ@estoqueprodutos.jzajy.mongodb.net/?retryWrites=true&w=majority&appName=EstoqueProdutos/imagem-salva.jpg";
-  return imageUrl;
-};
+  //const imageUrl = "mongodb+srv://antoniolemos2004:7t9Jv8t85I5eiFsJ@estoqueprodutos.jzajy.mongodb.net/?retryWrites=true&w=majority&appName=EstoqueProdutos/imagem-salva.jpg";
+  //return imageUrl;
+//};
 
 exports.createProduto = async (req, res) => {
   try {
