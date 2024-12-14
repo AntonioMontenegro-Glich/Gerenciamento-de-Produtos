@@ -1,5 +1,14 @@
 const Produto = require("../models/Produto");
 
+exports.getAllProdutos = async (req, res) => {
+  try {
+    const produtos = await Produto.find(); 
+    res.status(200).json(produtos); 
+  } catch (error) {
+    res.status(500).json({ error: error.message }); 
+  }
+};
+
 const uploadImage = async (imageBuffer) => {
   
   const imageUrl = "mongodb+srv://antoniolemos2004:7t9Jv8t85I5eiFsJ@estoqueprodutos.jzajy.mongodb.net/?retryWrites=true&w=majority&appName=EstoqueProdutos/imagem-salva.jpg";
