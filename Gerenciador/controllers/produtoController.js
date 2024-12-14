@@ -15,33 +15,26 @@ const uploadImage = async (imageBuffer) => {
   return imageUrl;
 };
 
-exports.createProduto = [
-  async (req, res) => {
-    try {
-      const { nome, descricao, quantidade, foto } = req.body;
+exports.createProduto = async (req, res) => {
+  try {
+    const { nome, descricao, quantidade, foto } = req.body;
 
-      if (!nome || !descricao || !quantidade) {
-        return res.status(400).json({ error: 'Os campos nome, descricao e quantidade são obrigatórios.' });
-      }
-
-      let fotoUrl = null;
-      if (foto) {
-        fotoUrl = await uploadImage(foto); 
-      }
-
-      const novoProduto = await Produto.create({
-        nome,
-        descricao,
-        quantidade,
-        foto: fotoUrl, 
-      });
-
-      return res.status(201).json(novoProduto);
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
+    if (!nome || !descricao || !quantidade) {
+      return res.status(400).json({ error: 'Os campos nome, descricao e quantidade são obrigatórios.' });
     }
-  },
-];
+
+    const novoProduto = await Produto.create({
+      nome,
+      descricao,
+      quantidade,
+      foto, 
+    });
+
+    return res.status(201).json(novoProduto);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 
 exports.updateProduto = async (req, res) => {

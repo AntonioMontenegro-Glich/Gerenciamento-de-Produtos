@@ -35,7 +35,8 @@ conectarMongoDB();
 
 
 app.use('/api/produtos', produtoRoutes);  
-app.use('/api', uploadRoutes);            
+app.use('/api', uploadRoutes);    
+app.use('/uploads', uploadFotosRoutes);        
 
 app.get('/', (req, res) => {
   res.send('API de Produtos funcionando!');
