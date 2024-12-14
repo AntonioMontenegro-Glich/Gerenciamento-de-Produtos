@@ -5,3 +5,5 @@ const { uploadImage } = require('../controllers/uploadFotos');
 const upload = multer();
 
 router.post('/upload', upload.single('image'), uploadImage);
+
+module.exports = router;
