@@ -39,7 +39,6 @@ app.use('/api/produtos', produtoRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "upload")));
 app.post("/upload", upload.single("photo"), (req, res) => {
  
-
   if (!req.file) {
     return res.status(400).send("Nenhum arquivo foi enviado.");
   }

@@ -45,9 +45,10 @@ exports.createProduto = async (req, res) => {
 exports.updateProduto = async (req, res) => {
     try {
       const { id } = req.params; 
-      const { nome, descricao, quantidade, foto } = req.body; 
+      const { nome, descricao, quantidade } = req.body; 
+
+      const foto = req.file ? `/uploads/${req.file.filename}` : undefined;
   
-      
       if (!nome && !descricao && !quantidade && !foto) {
         return res.status(400).json({ error: 'Envie ao menos um campo para atualização (nome, descricao , quantidade ou foto).' });
       }
