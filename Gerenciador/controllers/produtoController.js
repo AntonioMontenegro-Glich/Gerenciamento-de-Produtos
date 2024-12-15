@@ -26,7 +26,7 @@ exports.createProduto = async (req, res) => {
 
       const foto = req.file ? `/uploads/${req.file.filename}` : null;
   
-      console.log('Imagem recebida:', picture);
+      console.log('Imagem recebida:', req.file);
 
     const novoProduto = await Produto.create({
       nome,
